@@ -12,6 +12,7 @@ namespace MVCmappimgTest.Models
             public int No { set; get; }
             public string Name { set; get; }
             public string Check { set; get; }
+            public bool IsExist { set; get; }
         }
 
         public List<SubModel> subModels { set; get; }

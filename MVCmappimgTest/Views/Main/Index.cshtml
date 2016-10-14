@@ -11,10 +11,18 @@
     <meta name="viewport" content="width=device-width" />
     <title>View1</title>
     <style>
-        td,th{
-         border-width:1px;
-         border-style:solid;
-
+        table {
+            border-width: 1px;
+            border-style: solid;
+            border-collapse: collapse;
+        }
+        th, td {
+            border-width: 1px;
+            border-style: solid;
+        }
+        .border-double {
+            border-left-width: 3px;
+            border-left-style: double;
         }
     </style>
 </head>
@@ -34,7 +42,7 @@
                     <th>
                         Name
                     </th>
-                    <th>
+                    <th class="border-double">
                         check
                     </th>
                     <th>
@@ -43,7 +51,7 @@
                     <th>
                         Name
                     </th>
-                    <th>
+                    <th class="border-double">
                         check
                     </th>
                     <th>
@@ -61,28 +69,27 @@
                         {
                             @Html.Raw("<tr>")
                         }
-
-                        <td>
-                            @Html.CheckBoxFor(model => model.checks[item.No], new { @id = item.No, @name = item.Name })
-                        </td>
-                        <td>
-                            @Html.Raw(item.No)
-                        </td>
-                        <td>
-                            @Html.Raw(item.Name)
-                        </td>
-
-                        if (item.No == maxCount - 1)
+                        var classValue = "border-double";
+                        if (item.No % 3 == 0)
                         {
-                            var dummyIndex = maxCount % 3;
-                            while (dummyIndex > 0)
-                            {
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                dummyIndex--;
-                            }
+                            classValue = string.Empty;
                         }
+                        
+                        <td class=@classValue>
+                            @if(item.IsExist){
+                                @Html.CheckBoxFor(model => model.checks[item.No], new { @id = item.No, @name = item.Name })
+                            }
+                        </td>
+                        <td>
+                            @if(item.IsExist){
+                                @Html.Raw(item.No)
+                            }
+                        </td>
+                        <td>
+                            @if(item.IsExist){
+                                @Html.Raw(item.Name)
+                            }
+                        </td>
 
                         if (item.No % 3 == 2)
                         {

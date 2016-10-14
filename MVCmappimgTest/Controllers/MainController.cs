@@ -18,14 +18,24 @@ namespace MVCmappimgTest.Controllers
 
             model.checks = new List<bool>();
             model.subModels = new List<MainModel.SubModel>();
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 var item = new MainModel.SubModel();
-                item.No = i;
-                item.Name = "Test"+i.ToString();
+                item.No = model.subModels.Count;
+                item.Name = "Test" + i.ToString();
                 item.Check = "false";
+                item.IsExist = true;
                 model.subModels.Add(item);
                 model.checks.Add( false);
+            }
+
+            //3の倍数になるようにダミー作成
+            while ((model.subModels.Count%3) > 0)
+            {
+                var item = new MainModel.SubModel();
+                item.No = model.subModels.Count;
+                item.IsExist = false;
+                model.subModels.Add(item);
             }
 
             TempData["Model"] = model;

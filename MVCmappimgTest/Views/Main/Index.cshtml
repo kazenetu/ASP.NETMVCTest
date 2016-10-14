@@ -1,0 +1,100 @@
+﻿@model MVCmappimgTest.Models.MainModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View1</title>
+    <style>
+        td,th{
+         border-width:1px;
+         border-style:solid;
+
+        }
+    </style>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("send", "Main", FormMethod.Post))
+        {
+
+            <table>
+                <tr>
+                    <th>
+                        check
+                    </th>
+                    <th>
+                        No
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        check
+                    </th>
+                    <th>
+                        No
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        check
+                    </th>
+                    <th>
+                        No
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                </tr>
+                @{
+                    int maxCount = Model.subModels.Count();
+                    foreach (var item in Model.subModels)
+                    {
+                        if (item.No % 3 == 0)
+                        {
+                            @Html.Raw("<tr>")
+                        }
+
+                        <td>
+                            @Html.CheckBoxFor(model => model.checks[item.No], new { @id = item.No, @name = item.Name })
+                        </td>
+                        <td>
+                            @Html.Raw(item.No)
+                        </td>
+                        <td>
+                            @Html.Raw(item.Name)
+                        </td>
+
+                        if (item.No == maxCount - 1)
+                        {
+                            var dummyIndex = maxCount % 3;
+                            while (dummyIndex > 0)
+                            {
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                dummyIndex--;
+                            }
+                        }
+
+                        if (item.No % 3 == 2)
+                        {
+                            @Html.Raw("</tr>")
+                        }
+                    }
+}
+            </table>
+
+            <input type="submit" value="send" />
+        }
+
+    </div>
+</body>
+</html>

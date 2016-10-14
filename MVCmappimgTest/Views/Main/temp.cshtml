@@ -1,0 +1,53 @@
+﻿@model MVCmappimgTest.Models.MainModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View1</title>
+</head>
+<body>
+    <div>
+        @using(Html.BeginForm("send","Main",FormMethod.Post)){
+            
+       <table>
+            <tr>
+                <th>
+                    check
+                </th>
+                <th>
+                    No
+                </th>
+                <th>
+                    Name
+                </th>
+            </tr>
+            @{
+                foreach (var item in Model.subModels)
+                {
+                    <tr>
+                        <td>
+                            @Html.CheckBoxFor(model=>model.checks[item.No], new { @id = item.No,@name=item.Name })
+                        </td>
+                        <td>
+                            @Html.Raw(item.No)
+                        </td>
+                        <td>
+                            @Html.Raw(item.Name)
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+
+        <input type="submit" value="send" />
+        }
+
+    </div>
+</body>
+</html>
